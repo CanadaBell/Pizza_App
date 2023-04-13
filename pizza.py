@@ -2,14 +2,11 @@
 from textwrap import dedent
 import datetime
 import os
-import sys
 import string
 import re
 #Variables
 pizza_address = '11430 68 St NW' #Addres of Eastglen (Pizza Place)
 topping_total = 0 #counter for topping (will most likely be a bigger number)
-# Proccesing
-os.system('cls' if os.name =='nt' else 'clear')
 #Main Function
 def pizza_app():
     #Dicts, vars, and lists for pizza maker
@@ -27,18 +24,10 @@ def pizza_app():
         1: ['Marinara sauce', 0], 
         2: ['Pesto sauce', 4.2],
         3: ['Alfredo sauce', 2.1],
-        4: ['BBQ sauce', 3.7],
         5: ['Garlic butter sauce', 1.5],
         6: ['White sauce', 0.9],
-        7: ['Buffalo sauce', 2.8],
-        8: ['Honey mustard sauce', 4.0],
-        9: ['Ranch sauce', 3.3],
-        10: ['Tomato and basil sauce', 2.2],
-        11: ['Hot sauce', 1.1],
-        12: ['Chipotle sauce', 3.9],
-        13: ['Salsa sauce', 0.7],
-        14: ['Olive oil and garlic sauce', 1.3],
-        15: ['Sun-dried tomato sauce', 2.6]
+        7: ['Honey mustard sauce', 4.0],
+        8: ['Tomato and basil sauce', 2.2],
     }
     cheeses = { #Pizza Cheeses (Includes Name and price)
         0: ["No Cheese", 0],
@@ -48,15 +37,8 @@ def pizza_app():
         4: ['Provolone Cheese', 2.8],
         5: ['Gouda Cheese', 3.5],
         6: ['Blue Cheese', 4.2],
-        7: ['Brie Cheese', 5.0],
-        8: ['Feta Cheese', 3.8],
-        9: ['Ricotta Cheese', 2.7],
-        10: ['Swiss Cheese', 3.2],
-        11: ['Gruyere Cheese', 4.5],
-        12: ['Havarti Cheese', 3.6],
-        13: ['Pepper Jack Cheese', 3.9],
-        14: ['Asiago Cheese', 4.3],
-        15: ['Colby Jack Cheese', 3.3]
+        7: ['Feta Cheese', 3.8],
+        8: ['Havarti Cheese', 3.6],
     }
     toppings = { #Pizza toppings (Includes Name and price)
         1: ['Pepperoni', 1.5],
@@ -64,16 +46,12 @@ def pizza_app():
         3: ['Onions', 1.0],
         4: ['Sausage', 1.8],
         5: ['Bacon', 2.0],
-        6: ['Extra Cheese', 1.5],
         7: ['Green Peppers', 1.2],
         8: ['Black Olives', 1.1],
         9: ['Pineapple', 1.3],
         10: ['Ham', 1.8],
-        11: ['Tomatoes', 1.0],
-        12: ['Jalapenos', 1.2],
-        13: ['Spinach', 1.5],
-        14: ['Artichokes', 1.6],
-        15: ['Red Pepper Flakes', 1.0]
+        11: ['Jalapenos', 1.2],
+        12: ['Spinach', 1.5],
     }
     #Nested functions
     def deliv_time(deliv_address): #For estimated deliv time
@@ -94,17 +72,20 @@ def pizza_app():
         total_diff = ave_diff + st_diff #adds the difference in blocks
         time = 15 + (0.24 * total_diff) #calculates est_time and returns that number
         return time
+    def clear():
+        os.system('cls' if os.name =='nt' else 'clear')
     #Begining_Inputs
+    clear()
     print ("Hello user")
     print ("Please enter your name, Address (i.e. 12345 67 St) and Phone number")
     user_name = input("Name: ").capitalize()
     user_address = input("Address (abreveate street or avenue): ").lower()
-    while len(user_address) < 9 or len(user_address) > 16: user_address = input("Please enter a valid address: ")
-    while string.punctuation in user_address: user_address = input("Please enter a valid address: ")
-    while True:
+    while len(user_address) < 9 or len(user_address) > 16: user_address = input("Please enter a valid address: ") #checks if address is between 9 and 16 characters
+    while string.punctuation in user_address: user_address = input("Please enter a valid address: ") #checks if there are punctuation in the input 
+    while True: #checks if there are any dissallowed characters
         if re.match(allowed_chars, user_address): break
         user_address = input("Please enter a valid address (must only inculde st or ave): ")
-    while True:
+    while True: #checks that st or ave are in the right place and its only st or ave
         space_pos = user_address.find(" ")
         user_address = user_address.replace(" ", "")
         if user_address.find("st") in [6,7,8]: 
@@ -115,7 +96,7 @@ def pizza_app():
             pass
         user_address = input("Please enter a valid address (st or ave in wrong place or extra chars): ")
     user_address = user_address[:space_pos] + " " + user_address[space_pos:]
-    while True:
+    while True: #checks if the address is only numbers(except for st/ave)
         space_pos = user_address.find(" ")
         user_address = user_address.replace(" ", "")
         if int(user_address[:user_address.find("st")]) != ValueError or int(user_address[:user_address.find("ave")]) != ValueError: 
@@ -126,6 +107,7 @@ def pizza_app():
     user_phone = input("Phone Number: ")
 
     #Pizza creator
+    clear()
     print(dedent(f"""
     Hello {user_name}
     Please pick a pizza size from the following:
@@ -137,84 +119,66 @@ def pizza_app():
     Input the number of the size you wish to have"""))
     ask = int(input("> "))
     while ask not in sizes:
-        ask = int(input("Please try again: "))
+        ask = int(input("Please try again: ")) #checks input to see if its an option
     pizza.append(sizes[ask]) #Adds the size and cost to pizza list
-
+    clear()
     print(dedent(f"""
     Hello {user_name}
     Please pick a sauce from the following:
     
     0. No Sauce $0
-    1. Tomato $0
-    2: ['Pesto sauce', 4.2],
-    3: ['Alfredo sauce', 2.1],
-    4: ['BBQ sauce', 3.7],
-    5: ['Garlic butter sauce', 1.5],
-    6: ['White sauce', 0.9],
-    7: ['Buffalo sauce', 2.8],
-    8: ['Honey mustard sauce', 4.0],
-    9: ['Ranch sauce', 3.3],
-    10: ['Tomato and basil sauce', 2.2],
-    11: ['Hot sauce', 1.1],
-    12: ['Chipotle sauce', 3.9],
-    13: ['Salsa sauce', 0.7],
-    14: ['Olive oil and garlic sauce', 1.3],
-    15: ['Sun-dried tomato sauce', 2.6]
+    1. Marinara sauce $0
+    2. Pesto sauce $4.20
+    3. Alfredo sauce $2.10
+    5. Garlic butter sauce $1.50
+    6. White sauce $0.90
+    7. Honey mustard sauce $4.00
+    8. Tomato and basil sauce $2.20
     
     Input the number of the sauce you wish to have"""))
     ask = int(input("> "))
     while ask not in sauces:
-        ask = int(input("Please try again: "))
+        ask = int(input("Please try again: ")) #checks input to see if its an option
     user_toppings.append(sauces[ask]) #Adds the sauce and cost to toppings list
-
+    clear()
     print(dedent(f"""
     Hello {user_name}
     Please pick a cheese from the following:
     
     0. No Cheese $0
     1. Mozzarella $0
-    2: ['Cheddar Cheese', 3.0],
-    3: ['Parmesan Cheese', 4.0],
-    4: ['Provolone Cheese', 2.8],
-    5: ['Gouda Cheese', 3.5],
-    6: ['Blue Cheese', 4.2],
-    7: ['Brie Cheese', 5.0],
-    8: ['Feta Cheese', 3.8],
-    9: ['Ricotta Cheese', 2.7],
-    10: ['Swiss Cheese', 3.2],
-    11: ['Gruyere Cheese', 4.5],
-    12: ['Havarti Cheese', 3.6],
-    13: ['Pepper Jack Cheese', 3.9],
-    14: ['Asiago Cheese', 4.3],
-    15: ['Colby Jack Cheese', 3.3]
+    2. Cheddar Cheese $3.00
+    3. Parmesan Cheese $4.00
+    4. Provolone Cheese $2.80
+    5. Gouda Cheese $3.50
+    6. Blue Cheese $4.20
+    7. Feta Cheese $3.80
+    8. Havarti Cheese $3.60
     
     Input the number of the cheese you wish to have"""))
     ask = int(input("> "))
     while ask not in cheeses:
-        ask = int(input("Please try again: "))
+        ask = int(input("Please try again: ")) #checks input to see if its an option
     user_toppings.append(cheeses[ask]) #Adds the cheese and cost to toppings list
-
+    
     while True:
+        clear()
         print(dedent(f"""
         Hello {user_name}
         Please pick a topping from the following:
 
         0. Done
-        1: ['Pepperoni', 1.5],
-        2: ['Mushrooms', 1.2],
-        3: ['Onions', 1.0],
-        4: ['Sausage', 1.8],
-        5: ['Bacon', 2.0],
-        6: ['Extra Cheese', 1.5],
-        7: ['Green Peppers', 1.2],
-        8: ['Black Olives', 1.1],
-        9: ['Pineapple', 1.3],
-        10: ['Ham', 1.8],
-        11: ['Tomatoes', 1.0],
-        12: ['Jalapenos', 1.2],
-        13: ['Spinach', 1.5],
-        14: ['Artichokes', 1.6],
-        15: ['Red Pepper Flakes', 1.0]
+        1. Pepperoni $1.50
+        2. Mushrooms $1.20
+        3. Onions $1.00
+        4. Sausage $1.80
+        5. Bacon $2.00
+        7. Green Peppers $1.20
+        8. Black Olives $1.10
+        9. Pineapple $1.30
+        10. Ham $1.80
+        11. Jalapenos $1.20
+        12. Spinach $1.50
 
         Input the number of the topping you wish to have
         When done, input 0
@@ -222,7 +186,7 @@ def pizza_app():
         topping = int(input("> "))
         while topping not in toppings:
             if topping == 0: break
-            topping = int(input("Please try again: "))
+            topping = int(input("Please try again: ")) #checks input to see if its an option
         if topping == 0: break #If user inputs 0, end loop
         user_toppings.append(toppings[topping]) #Adds the topping and cost to toppings list
     pizza.append(user_toppings)
@@ -236,25 +200,27 @@ pizza_toppings = "\n".join(["   - " + created_pizza[1][x][0] for x in range(len(
 
 for item in range(len(created_pizza[1])): topping_total += created_pizza[1][item][1] #Adds the cost up of each topping
 pizza_sub = 20 + topping_total + created_pizza[0][1] #adds 20 with the sum of all toppings and pizza size cost
-pizza_gst = round((pizza_sub * 0.05), 2) #calculates how much gst will be (Alberta) (rounds to 2 decimal places)
+pizza_gst = round((pizza_sub * 0.05),2) #calculates how much gst will be (Alberta) (rounds to 2 decimal places)
 pizza_total = round((pizza_sub + pizza_gst),2) #adds sub and gst together (rounds to 2 decimal places)
-\
+
 current_time = datetime.datetime.now() #Gets the current date and time
 est_deliv_time = current_time + datetime.timedelta(minutes=eta) #adds estimated delivery time
 est_deliv_time = est_deliv_time.time().replace(microsecond=0) #drops the date and gets rid of microseconds
 
+os.system('cls' if os.name =='nt' else 'clear')
+#recipt
 print (f"""
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 {user}'(s) Pizza
-------------
+--------------------------------
 Size: {created_pizza[0][0]}
 Toppings:
 {pizza_toppings}
-----------------
-Subtotal: {pizza_sub}
-Gst: {pizza_gst}
-Total: {pizza_total}
-----------------
+--------------------------------
+Subtotal: {pizza_sub:.2f}
+Gst: {pizza_gst:.2f}
+Total: {pizza_total:.2f}
+--------------------------------
 Address: {address}
 ETA: {est_deliv_time} ({eta} minutes)
 If any of this info is incorrect
