@@ -24,10 +24,10 @@ def pizza_app():
         1: ['Marinara sauce', 0], 
         2: ['Pesto sauce', 4.2],
         3: ['Alfredo sauce', 2.1],
-        5: ['Garlic butter sauce', 1.5],
-        6: ['White sauce', 0.9],
-        7: ['Honey mustard sauce', 4.0],
-        8: ['Tomato and basil sauce', 2.2],
+        4: ['Garlic butter sauce', 1.5],
+        5: ['White sauce', 0.9],
+        6: ['Honey mustard sauce', 4.0],
+        7: ['Tomato and basil sauce', 2.2],
     }
     cheeses = { #Pizza Cheeses (Includes Name and price)
         0: ["No Cheese", 0],
@@ -127,10 +127,10 @@ def pizza_app():
     1. Marinara sauce $0
     2. Pesto sauce $4.20
     3. Alfredo sauce $2.10
-    5. Garlic butter sauce $1.50
-    6. White sauce $0.90
-    7. Honey mustard sauce $4.00
-    8. Tomato and basil sauce $2.20
+    4. Garlic butter sauce $1.50
+    5. White sauce $0.90
+    6. Honey mustard sauce $4.00
+    7. Tomato and basil sauce $2.20
     
     Input the number of the sauce you wish to have"""))
     ask = int(input("> "))
