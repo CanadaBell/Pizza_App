@@ -24,10 +24,10 @@ def pizza_app():
         1: ['Marinara sauce', 0], 
         2: ['Pesto sauce', 4.2],
         3: ['Alfredo sauce', 2.1],
-        4: ['Garlic butter sauce', 1.5],
-        5: ['White sauce', 0.9],
-        6: ['Honey mustard sauce', 4.0],
-        7: ['Tomato and basil sauce', 2.2],
+        5: ['Garlic butter sauce', 1.5],
+        6: ['White sauce', 0.9],
+        7: ['Honey mustard sauce', 4.0],
+        8: ['Tomato and basil sauce', 2.2],
     }
     cheeses = { #Pizza Cheeses (Includes Name and price)
         0: ["No Cheese", 0],
@@ -90,13 +90,19 @@ def pizza_app():
         user_address = user_address.replace(" ", "")
         if user_address.find("st") in [6,7,8]: 
             if re.match("^[st0-9\s]*$", user_address):
-                if int(user_address[:user_address.find("s")]) != ValueError: break
-                pass
+                if user_address[:user_address.find("s")].isdigit() == False:
+                    user_address = input("Please enter a valid address (address cant exist): ")
+                    continue
+                else:
+                    break
             pass
         if user_address.find("ave") in [6,7,8]: 
             if re.match("^[ave0-9\s]*$", user_address):
-                if int(user_address[:user_address.find("a")]) != ValueError: break
-                pass
+                if user_address[:user_address.find("a")].isdigit() == False:
+                    user_address = input("Please enter a valid address (address cant exist): ")
+                    continue
+                else:
+                    break
             pass
         user_address = input("Please enter a valid address (st or ave in wrong place or extra chars): ")
     user_address = user_address[:space_pos] + " " + user_address[space_pos:]
@@ -127,10 +133,10 @@ def pizza_app():
     1. Marinara sauce $0
     2. Pesto sauce $4.20
     3. Alfredo sauce $2.10
-    4. Garlic butter sauce $1.50
-    5. White sauce $0.90
-    6. Honey mustard sauce $4.00
-    7. Tomato and basil sauce $2.20
+    5. Garlic butter sauce $1.50
+    6. White sauce $0.90
+    7. Honey mustard sauce $4.00
+    8. Tomato and basil sauce $2.20
     
     Input the number of the sauce you wish to have"""))
     ask = int(input("> "))
