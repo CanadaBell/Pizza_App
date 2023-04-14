@@ -80,8 +80,8 @@ def pizza_app():
     print ("Please enter your name, Address (i.e. 12345 67 St) and Phone number")
     user_name = input("Name: ").capitalize()
     user_address = input("Address (abreveate street or avenue): ").lower()
-    while len(user_address) < 9 or len(user_address) > 16: user_address = input("Please enter a valid address: ") #checks if address is between 9 and 16 characters
-    while string.punctuation in user_address: user_address = input("Please enter a valid address: ") #checks if there are punctuation in the input 
+    while len(user_address) < 9 or len(user_address) > 16: user_address = input("Please enter a valid address (too little or to many chars): ") #checks if address is between 9 and 16 characters
+    while string.punctuation in user_address: user_address = input("Please enter a valid address (no punctuation): ") #checks if there are punctuation in the input 
     while True: #checks if there are any dissallowed characters
         if re.match(allowed_chars, user_address): break
         user_address = input("Please enter a valid address (must only inculde st or ave): ")
@@ -89,19 +89,16 @@ def pizza_app():
         space_pos = user_address.find(" ")
         user_address = user_address.replace(" ", "")
         if user_address.find("st") in [6,7,8]: 
-            if re.match("^[st0-9\s]*$", user_address): break
+            if re.match("^[st0-9\s]*$", user_address):
+                if int(user_address[:user_address.find("s")]) != ValueError: break
+                pass
             pass
         if user_address.find("ave") in [6,7,8]: 
-            if re.match("^[ave0-9\s]*$", user_address): break
+            if re.match("^[ave0-9\s]*$", user_address):
+                if int(user_address[:user_address.find("a")]) != ValueError: break
+                pass
             pass
         user_address = input("Please enter a valid address (st or ave in wrong place or extra chars): ")
-    user_address = user_address[:space_pos] + " " + user_address[space_pos:]
-    while True: #checks if the address is only numbers(except for st/ave)
-        space_pos = user_address.find(" ")
-        user_address = user_address.replace(" ", "")
-        if int(user_address[:user_address.find("st")]) != ValueError or int(user_address[:user_address.find("ave")]) != ValueError: 
-            break
-        user_address = input("Please enter a valid address (not an address): ")
     user_address = user_address[:space_pos] + " " + user_address[space_pos:]
     est_time = deliv_time(user_address)
     user_phone = input("Phone Number: ")
